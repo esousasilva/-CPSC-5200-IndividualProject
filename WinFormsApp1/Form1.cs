@@ -1,6 +1,7 @@
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using Microsoft.VisualBasic;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -18,11 +19,15 @@ namespace WinFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string fileNameee = "C:\\Users\\eduar\\source\\repos\\WinFormsApp1\\WinFormsApp1\\lean.png";
-            Mat img = CvInvoke.Imread(fileNameee, ImreadModes.Color);
-            Bitmap bmp = img.ToBitmap();
-            picOriginal.Image = bmp;
-
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Supported files: (*.bmp, *.jpg, *.png)|*.bmp; *.jpg; *png";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                Mat img = CvInvoke.Imread(open.FileName, ImreadModes.Color);
+                Bitmap bmp = img.ToBitmap();
+                picOriginal.Image = bmp;
+                picOriginal.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -32,8 +37,9 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Bitmap coppy = new Bitmap((Bitmap)picOriginal.Image);
+            //newImage.Image = Method.ConvertToGray((Bitmap)picOriginal.Image);
             newImage.Image = Method.RotateNDegree((Bitmap)picOriginal.Image, 45.0);
+            newImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void newImage_Click(object sender, EventArgs e)
