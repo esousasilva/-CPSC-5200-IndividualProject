@@ -16,6 +16,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
+        private bool _box1, _box2, _box3 = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -37,13 +38,42 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //newImage.Image = Method.ConvertToGray((Bitmap)picOriginal.Image);
-            newImage.Image = Method.RotateNDegree((Bitmap)picOriginal.Image, 45.0);
+            newImage.Image = (Bitmap)picOriginal.Image;
+         
+            if (checkBox1.Checked)
+            {
+                newImage.Image = Method.ConvertToGray((Bitmap)newImage.Image);
+            }
+
+            if(checkBox2.Checked)
+            {
+                newImage.Image = Method.RotateNDegree((Bitmap)newImage.Image, 90.0);
+            }
+
+            if(checkBox3.Checked) 
+            {
+                newImage.Image = Method.RotateNDegree((Bitmap)newImage.Image, 45.0);
+            }
             newImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void newImage_Click(object sender, EventArgs e)
         {
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            _box1 = true;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            _box2 = true;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            _box3 = true;
         }
     }
 }
